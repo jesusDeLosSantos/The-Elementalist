@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     public float attackRange;
     public float coolDown;
     public bool notInRoom = false;
+    private bool coolDownAttack = false;
     private bool chooseDir = false;
     private bool dead = false;
     private Vector3 randomDir;
@@ -113,7 +114,23 @@ public class EnemyController : MonoBehaviour
     //
     void Attack()
     {
+        if (!coolDownAttack)
+        {
+            GameController.DamagePlayer(1);
+            StartCoroutine(CoolDown());
+        }
+    }
 
+    private IEnumerator CoolDown()
+    {
+        coolDownAttack = true;
+        yield return new WaitForSeconds(coolDown);
+        coolDownAttack = false;
+    }
+
+    public void Death()
+    {
+        Destroy(gameObject);
     }
 
 }

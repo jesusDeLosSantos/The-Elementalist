@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D body;
     public GameObject bulletPre;
     public float bulletSpeed;
-    public float lastFire;
+    private float lastFire;
     public float fireDelay;
 
     // Start is called before the first frame update
@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
     
     void Shoot(float x, float y)
     {
-        GameObject bullet = Instantiate(bulletPre, transform.position, transform.rotation);     //Creo la bala
+        GameObject bullet = Instantiate(bulletPre, transform.position, transform.rotation) as GameObject;     //Creo la bala
 
         bullet.AddComponent<Rigidbody2D>().gravityScale = 0;                                    //Le añado una gravedad al objeto
         bullet.GetComponent<Rigidbody2D>().velocity = new Vector3                               //Creo un vector a raíz de los parámetros de disparo vertical y horizontal, redondeandolos hacia arriba o hacia abajo, según si son mayores a 0
@@ -48,5 +48,7 @@ public class PlayerScript : MonoBehaviour
                 0
             );
     }
+
     
+
 }

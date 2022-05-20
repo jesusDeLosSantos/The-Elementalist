@@ -22,6 +22,9 @@ public class CollectionController : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            GameController.HealPlayer(1);
+            GameController.MoveSpeedChange(1);
+            GameController.FireRateChange(1);
             Destroy(gameObject);
         }
     }
