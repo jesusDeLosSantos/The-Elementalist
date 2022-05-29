@@ -1580,10 +1580,6 @@ MonoBehaviour:
   bulletPre: {fileID: 80429417882922452, guid: cb61c606a5c07be4ca90b49e96036500, type: 3}
   bulletSpeed: 1
   fireDelay: 2
-  dashSpeed: 2
-  dashLength: 0.5
-  dashCooldown: 5
-  dashCounter: 0
 --- !u!1 &1714926336
 GameObject:
   m_ObjectHideFlags: 0
