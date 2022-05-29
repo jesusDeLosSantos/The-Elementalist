@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed;
     Rigidbody2D body;
@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
     public float bulletSpeed;
     private float lastFire;
     public float fireDelay;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,15 +23,6 @@ public class PlayerScript : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");                 //Para controlar el movimiento horizontal
         float vertical = Input.GetAxis("Vertical");                     //Para controlar el movimiento vertical
-        float shootHorizontal = Input.GetAxis("ShootHorizontal");       //Para controlar el disparo horizontal
-        float shootVertical = Input.GetAxis("ShootVertical");           //Para controlar el disparo vertical
-
-        //Comprueba que no se esté disparando de ninguna forma, y si, el tiempo de coldown es menor al que ha pasado, puede disparar de nuevo
-        if ((shootHorizontal!=0 || shootVertical!= 0) && Time.time > lastFire+fireDelay)
-        {
-            Shoot(shootHorizontal, shootVertical);
-            lastFire = Time.time;
-        }
 
         body.velocity = new Vector3(horizontal * speed, vertical * speed, 0); //Asigna la velocidad del jugador
     }
@@ -40,7 +32,7 @@ public class PlayerScript : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPre, transform.position, transform.rotation) as GameObject;     //Creo la bala
 
-        bullet.AddComponent<Rigidbody2D>().gravityScale = 0;                                    //Le añado una gravedad al objeto
+        bullet.AddComponent<Rigidbody2D>().gravityScale = 0;                                    
         bullet.GetComponent<Rigidbody2D>().velocity = new Vector3                               //Creo un vector a raíz de los parámetros de disparo vertical y horizontal, redondeandolos hacia arriba o hacia abajo, según si son mayores a 0
             (
                 (x < 0) ? Mathf.Floor(x) * bulletSpeed : Mathf.Ceil(x) * bulletSpeed,

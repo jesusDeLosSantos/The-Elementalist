@@ -21,11 +21,13 @@ public class EnemyController : MonoBehaviour
 {
     GameObject player;
     public EnemyState currState = EnemyState.Idle;
+    public EnemyType enemyType;
     public float range;
     public float speed;
     public float attackRange;
     public float coolDown;
     public bool notInRoom = false;
+    public GameObject bulletPre;
     private bool coolDownAttack = false;
     private bool chooseDir = false;
     private bool dead = false;
@@ -99,6 +101,7 @@ public class EnemyController : MonoBehaviour
         }
 
         transform.position += -transform.right * speed * Time.deltaTime;
+
         if (IsPlayerInRange(range))
         {
             currState = EnemyState.Follow;
@@ -116,8 +119,19 @@ public class EnemyController : MonoBehaviour
     {
         if (!coolDownAttack)
         {
-            GameController.DamagePlayer(1);
-            StartCoroutine(CoolDown());
+            switch (enemyType)
+            {
+                case (EnemyType.Melee):
+                    GameController.DamagePlayer(1);
+                    StartCoroutine(CoolDown());
+                    break;
+                case (EnemyType.Ranged):
+                    StartCoroutine(CoolDown());
+                    GameObject bullet = Instantiate(bulletPre, transform.position, Quaternion.identity) as GameObject;
+                    bullet.GetComponent<EnemyBulletController>().GetPlayer(player.transform);
+                    break;
+
+            }
         }
     }
 

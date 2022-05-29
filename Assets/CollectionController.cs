@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
+
 
 public class CollectionController : MonoBehaviour
 {
+    Random rand = new Random();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +26,19 @@ public class CollectionController : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            GameController.HealPlayer(1);
-            GameController.MoveSpeedChange(1);
-            GameController.FireRateChange(1);
+            
+            switch (rand.Next(0, 4))
+            {
+                case 1:
+                    GameController.HealPlayer(1);
+                    break;
+                case 2:
+                    GameController.MoveSpeedChange(1);
+                    break;
+                case 3:
+                    GameController.FireRateChange();
+                break;
+            }
             Destroy(gameObject);
         }
     }

@@ -11,8 +11,10 @@ public class GameController : MonoBehaviour
     private static float health = 10;
     private static int maxHealth = 10;
     private static float moveSpeed = 5f;
-    private static float fireRate = 0.5f;
+    private static float fireRate = 2;
     public Text healthText;
+    public Text speedText;
+    public Text fireRateText;
 
 
     //Getters y setters
@@ -35,7 +37,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //healthText.text = "Health: " + health;
+        healthText.text = "Health: " + health;
+        speedText.text = "Speed: " + moveSpeed;
+        fireRateText.text = "FireRate: " + fireRate + "s";
     }
 
     public static void DamagePlayer(int damage)
@@ -58,9 +62,9 @@ public class GameController : MonoBehaviour
         moveSpeed += speed;
     }
 
-    public static void FireRateChange(float rate)
+    public static void FireRateChange()
     {
-        fireRate -= rate;
+        fireRate = fireRate/2;
     }
 
 
