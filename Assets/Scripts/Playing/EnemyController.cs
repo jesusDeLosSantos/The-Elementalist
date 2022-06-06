@@ -73,6 +73,10 @@ public class EnemyController : MonoBehaviour
                 currState = EnemyState.Attack;
             }
         }
+        else
+        {
+            currState = EnemyState.Idle;
+        }
     }
 
     //Este método calcula un vector que muestra la distancia que hay con el jugador
@@ -87,8 +91,6 @@ public class EnemyController : MonoBehaviour
         chooseDir = true;
         yield return new WaitForSeconds(Random.Range(2f, 8f));
         randomDir = new Vector3(0, 0, Random.Range(0, 360));
-        Quaternion nextRotation = Quaternion.Euler(randomDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
         chooseDir = false;
     }
 

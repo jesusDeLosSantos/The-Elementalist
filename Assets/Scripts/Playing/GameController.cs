@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     private static float health = 10;
-    private static int maxHealth = 10;
+    private static int maxHealth = 15;
     private static float moveSpeed = 5f;
     private static float fireRate = 2;
     public Text healthText;
@@ -28,6 +29,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        health = 10;
+        moveSpeed = 5f;
+        fireRate = 2;
+
         if (instance == null)
         {
             instance = this;
@@ -71,6 +76,6 @@ public class GameController : MonoBehaviour
 
     private static void KillPlayer()
     {
-        //aquí acabaría el juego
+        SceneManager.LoadScene("Defeat");
     }
 }

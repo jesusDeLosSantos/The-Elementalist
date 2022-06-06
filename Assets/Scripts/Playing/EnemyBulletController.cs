@@ -45,9 +45,14 @@ public class EnemyBulletController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Player" && isEnemyBullet)
+        if (col.tag == "Player")
         {
             GameController.DamagePlayer(1);
+            Destroy(gameObject);
+        }
+
+        if (col.tag == "Wall")
+        {
             Destroy(gameObject);
         }
     }

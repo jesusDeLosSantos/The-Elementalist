@@ -34,9 +34,20 @@ public class BulletController : MonoBehaviour
     //Este trigger recoge la colisión y llama a muerte
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Enemy" && !isEnemyBullet)
+        if (col.tag == "Enemy")
         {
             col.gameObject.GetComponent<EnemyController>().Death();
+            Destroy(gameObject);
+        }
+
+        if (col.tag == "Boss")
+        {
+            col.gameObject.GetComponent<BossController>().Death();
+            Destroy(gameObject);
+        }
+
+        if (col.tag == "Wall")
+        {
             Destroy(gameObject);
         }
         

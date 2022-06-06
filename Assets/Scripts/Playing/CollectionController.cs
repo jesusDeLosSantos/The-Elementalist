@@ -27,15 +27,15 @@ public class CollectionController : MonoBehaviour
         if (collision.tag == "Player")
         {
             
-            switch (rand.Next(0, 4))
+            switch (rand.Next(0, 3))
             {
-                case 1:
+                case 0:
                     GameController.HealPlayer(1);
                     break;
-                case 2:
+                case 1:
                     GameController.MoveSpeedChange(1);
                     break;
-                case 3:
+                case 2:
                     GameController.FireRateChange();
                 break;
             }

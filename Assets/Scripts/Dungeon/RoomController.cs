@@ -41,7 +41,7 @@ public class RoomController : MonoBehaviour
         //LoadRoom("Empty", 1, 0);
         //LoadRoom("Empty", -1, 0);
         //LoadRoom("Empty", 0, 1);
-        //LoadRoom("Empty", 0, -1);
+        LoadRoom("Empty", 0, -1);
     }
 
     void Update()
@@ -58,7 +58,11 @@ public class RoomController : MonoBehaviour
 
         if (loadRoomQueue.Count == 0)
         {
-            if (!updatedRooms)
+            if (!spawnedBossRoom)
+            {
+                StartCoroutine(SpawnBossRoom());
+            }
+            else if (spawnedBossRoom && !updatedRooms)
             {
                 foreach (Room room in loadedRooms)
                 {
@@ -74,6 +78,21 @@ public class RoomController : MonoBehaviour
         isLoadingRoom = true;
 
         StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
+    }
+
+    IEnumerator SpawnBossRoom()
+    {
+        spawnedBossRoom = true;
+        yield return new WaitForSeconds(0.5f);
+        if (loadRoomQueue.Count == 0)
+        {
+            Room bossRoom = loadedRooms[loadedRooms.Count - 1];
+            Room tempRoom = new Room(bossRoom.X, bossRoom.Y);
+            Destroy(bossRoom.gameObject);
+            var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
+            loadedRooms.Remove(roomToRemove);
+            LoadRoom("End", tempRoom.X, tempRoom.Y);
+        }
     }
 
     public void LoadRoom(string name, int x, int y)
