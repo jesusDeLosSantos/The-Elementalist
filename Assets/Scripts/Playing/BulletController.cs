@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    #region Attributes
     private Camera cam;
     private Vector3 mousePos;
     private Rigidbody2D rb;
     public float force;
     public float lifeTime;
     public bool isEnemyBullet = false;
+    #endregion
 
+    #region Methods
+    /// <summary>
+    ///     <header>void Start()</header>
+    ///     <description>This method controls the behaviour of the bullet, giving it direction, rotation, time-life...</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +34,14 @@ public class BulletController : MonoBehaviour
         StartCoroutine(DeathDelay());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    //Este trigger recoge la colisión y llama a muerte
-    void OnTriggerEnter2D(Collider2D col)
+    /// <summary>
+    ///     <header>private void OnTriggerEnter2D(Collider2D col)</header>
+    ///     <description>This method destroys the bullet when it collides with an enemy, a wall or the boss</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
+    private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Enemy")
         {
@@ -53,10 +62,17 @@ public class BulletController : MonoBehaviour
         
     }
 
-    //Este método controla el tiempo de espera para destruir la bala, y la destruye (o se supone)
-    IEnumerator DeathDelay()
+
+    /// <summary>
+    ///     <header>private IEnumerator DeathDelay()</header>
+    ///     <description>This method destroys the bullet after an established time</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
+    private IEnumerator DeathDelay()
     {
         yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }
+    #endregion
 }

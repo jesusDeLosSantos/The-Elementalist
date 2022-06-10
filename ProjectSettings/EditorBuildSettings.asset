@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menus/MainMenu.unity
+    guid: 7c8f8044211a1234b838caabd172eea9
+  - enabled: 1
+    path: Assets/Scenes/Menus/Settings.unity
+    guid: f51279d52a928ff4f8cda3ebec35ac79
+  - enabled: 1
     path: Assets/Scenes/Rooms/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
@@ -17,12 +23,6 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Menus/Settings.unity
-    guid: f51279d52a928ff4f8cda3ebec35ac79
-  - enabled: 1
-    path: Assets/Scenes/Menus/MainMenu.unity
-    guid: 7c8f8044211a1234b838caabd172eea9
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
@@ -30,8 +30,8 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Victory.unity
-    guid: 8506a0cd3dc774d4887cc503e2847208
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Menus/Defeat.unity
     guid: 00260f46b0d40374ba5172cfd5dadafe

@@ -6,21 +6,18 @@ using Random = System.Random;
 
 public class CollectionController : MonoBehaviour
 {
+    #region Attributes
     Random rand = new Random();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 
 
+    #region Methods
+    /// <summary>
+    ///     <header>private void OnTriggerEnter2D(Collider2D collision)</header>
+    ///     <description>This method deletes the object when the player collides with the object and gives to the player a random buff.</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     //Este método elimina el objeto cuando el jugador colisiona con él
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,4 +39,5 @@ public class CollectionController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }

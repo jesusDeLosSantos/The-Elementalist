@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region Enums
 public enum EnemyState
 {
     Idle,
@@ -16,9 +17,11 @@ public enum EnemyType
     Melee,
     Ranged
 };
+#endregion
 
 public class EnemyController : MonoBehaviour
 {
+    #region Attributes
     GameObject player;
     public EnemyState currState = EnemyState.Idle;
     public EnemyType enemyType;
@@ -26,19 +29,33 @@ public class EnemyController : MonoBehaviour
     public float speed;
     public float attackRange;
     public float coolDown;
-    public bool notInRoom = false;
     public GameObject bulletPre;
     private bool coolDownAttack = false;
     private bool chooseDir = false;
-    private bool dead = false;
     private Vector3 randomDir;
+    #endregion
 
+
+    #region Methods
+    /// <summary>
+    ///     <header>void Start()</header>
+    ///     <description>This method establishes the GameObject to the Player object</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
+
+    /// <summary>
+    ///     <header>void Update()</header>
+    ///     <description>This method controls the status of the enemy</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     // Update is called once per frame
     void Update()
     {
@@ -57,35 +74,39 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        //Actualiza el estado del enemigo si está en la sala
-        if (!notInRoom)
+        
+        if (IsPlayerInRange(range) && currState != EnemyState.Die)      
         {
-            if (IsPlayerInRange(range) && currState != EnemyState.Die)      //Si está en rango y no muerto
-            {
-                currState = EnemyState.Follow;
-            }
-            else if (!IsPlayerInRange(range) && currState != EnemyState.Die)    //Si no está en rango y no muerto
+            currState = EnemyState.Follow;
+        }else 
+            if (!IsPlayerInRange(range) && currState != EnemyState.Die)    
             {
                 currState = EnemyState.Wander;
             }
-            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)  //Si está en en un vector con una distancia menor al rango de ataque
-            {
-                currState = EnemyState.Attack;
-            }
-        }
-        else
-        {
-            currState = EnemyState.Idle;
-        }
+         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)  
+             currState = EnemyState.Attack;
+         
     }
 
-    //Este método calcula un vector que muestra la distancia que hay con el jugador
+    
+    /// <summary>
+    ///     <header>private bool IsPlayerInRange(float range)</header>
+    ///     <description>This method calculates the distance between it and the player</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     private bool IsPlayerInRange(float range)
     {
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
 
-    //Este método selecciona direcciones aleatorias para trazar vectores de distancia y girar al enemigo lo necesario para su movimiento, dependiendo de la dirección que tome
+    
+    /// <summary>
+    ///     <header>private IEnumerator ChooseDirection()</header>
+    ///     <description>This method calculates a random direction and rotates the enemy</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     private IEnumerator ChooseDirection()
     {
         chooseDir = true;
@@ -94,8 +115,14 @@ public class EnemyController : MonoBehaviour
         chooseDir = false;
     }
 
-    //Mantiene al enemigo moviendose aleatoriamente hasta que esté a rango y empiece a seguir
-    void Wander()
+    
+    /// <summary>
+    ///     <header>private void Wander()</header>
+    ///     <description>This method maintains the enemy moving randomly until the player enters to its range</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
+    private void Wander()
     {
         if (!chooseDir)
         {
@@ -110,14 +137,27 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //Va transformando la posición del enemigo trazando un vector hacia el jugador y acercando al enemigo
-    void Follow()
+    
+
+    /// <summary>
+    ///     <header>private void Follow()</header>
+    ///     <description>This method calculates the direction between it and the player and transform its position</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
+    private void Follow()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
-    //
-    void Attack()
+    
+    /// <summary>
+    ///     <header>private void Attack()</header>
+    ///     <description>This method shoots a bullet to the player position</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
+    private void Attack()
     {
         if (!coolDownAttack)
         {
@@ -137,6 +177,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    ///     <header>private IEnumerator CoolDown()</header>
+    ///     <description>This method makes a simulation of cooldown, stopping the process for seconds</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     private IEnumerator CoolDown()
     {
         coolDownAttack = true;
@@ -144,9 +191,17 @@ public class EnemyController : MonoBehaviour
         coolDownAttack = false;
     }
 
+
+    /// <summary>
+    ///     <header>public void Death()</header>
+    ///     <description>This method destroy the enemy</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     public void Death()
     {
         Destroy(gameObject);
     }
+    #endregion
 
 }

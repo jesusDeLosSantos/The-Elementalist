@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
-    public Room room;
 
+    #region Attributes
     [System.Serializable]
     public struct Grid
     {
         public int columns, rows;
         public float verticalOffset, horizontalOffset;
     }
-
+    public Room room;
     public Grid grid;
     public GameObject gridTile;
     public List<Vector2> availablePoints = new List<Vector2>();
+    #endregion
 
+
+    #region Methods
+    /// <summary>
+    ///     <header>void Awake()</header>
+    ///     <description>This method initializes the attributes and generate the grid</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     void Awake()
     {
         room = GetComponentInParent<Room>();
@@ -25,6 +34,13 @@ public class GridController : MonoBehaviour
         GenerateGrid();
     }
 
+
+    /// <summary>
+    ///     <header>public void GenerateGrid()</header>
+    ///     <description>This method generates a grid, generating in it a GameObject in each cell</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     public void GenerateGrid()
     {
         grid.verticalOffset += room.GetComponent<Transform>().localPosition.y;
@@ -38,11 +54,10 @@ public class GridController : MonoBehaviour
                 go.GetComponent<Transform>().position = new Vector2(x - (grid.columns - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));
                 go.name = "X: " + x + ", Y: " + y;
                 availablePoints.Add(go.transform.position);
-                //go.SetActive(false);
             }
         }
 
         GetComponentInParent<ObjectRoomSpawner>().InitialiseObjectSpawning();
     }
-
+    #endregion
 }

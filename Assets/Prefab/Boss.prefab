@@ -127,7 +127,7 @@ MonoBehaviour:
   coolDown: 0.1
   notInRoom: 0
   bulletPre: {fileID: 4436163721211379204, guid: 32c3a73b730414245b4540859f8df265, type: 3}
-  life: 30
+  life: 100
 --- !u!58 &2915643442677232399
 CircleCollider2D:
   m_ObjectHideFlags: 0

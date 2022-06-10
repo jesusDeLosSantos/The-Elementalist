@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+#region Enum
 public enum Direction
 {
     up = 0,
@@ -9,6 +11,7 @@ public enum Direction
     down = 2,
     right = 3
 };
+#endregion
 
 public class DungeonCrawlerController : MonoBehaviour
 {
@@ -21,6 +24,13 @@ public class DungeonCrawlerController : MonoBehaviour
         {Direction.right, Vector2Int.right}
     };
 
+
+    /// <summary>
+    ///     <header>public static List<Vector2Int> GenerateDungeon(DungeonGenerationData dungeonData)</header>
+    ///     <description>This method generates the dungeon from the data introduced, geting the positions generated for the new rooms and then, generating a random number between max and min of rooms</description>
+    ///     <precondition>None</precondition>
+    ///     <postcondition>None</postcondition>
+    /// </summary>
     public static List<Vector2Int> GenerateDungeon(DungeonGenerationData dungeonData)
     {
         List<DungeonCrawler> dungeonCrawlers = new List<DungeonCrawler>();
